@@ -75,19 +75,14 @@ material-react-dashboard
 	├── layouts
 	├── theme
 	├── views
-	│	├── Account
+	│	├── About Me
 	│	├── Dashboard
-	│	├── Icons
-	│	├── NotFound
-	│	├── ProductList
-	│	├── Settings
-	│	├── SignIn
-	│	├── SignUp
-	│	├── Typography
-	│	└── UserList
+	│	├── State List
+	│	└── Technical Stack
 	├── App.jsx
 	├── index.jsx
 	└── Routes.jsx
+	└── dataModel.js
 ```
 
 ## Resources
