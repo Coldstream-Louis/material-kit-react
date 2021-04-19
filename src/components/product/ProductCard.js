@@ -1,15 +1,16 @@
+/* eslint-disable */
 import PropTypes from 'prop-types';
 import {
   Avatar,
   Box,
+  Button,
   Card,
   CardContent,
   Divider,
   Grid,
   Typography
 } from '@material-ui/core';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import GetAppIcon from '@material-ui/icons/GetApp';
+import OpenInBrowserIcon from '@material-ui/icons/OpenInBrowser';
 
 const ProductCard = ({ product, ...rest }) => (
   <Card
@@ -65,15 +66,6 @@ const ProductCard = ({ product, ...rest }) => (
             display: 'flex'
           }}
         >
-          <AccessTimeIcon color="action" />
-          <Typography
-            color="textSecondary"
-            display="inline"
-            sx={{ pl: 1 }}
-            variant="body2"
-          >
-            Updated 2hr ago
-          </Typography>
         </Grid>
         <Grid
           item
@@ -82,17 +74,17 @@ const ProductCard = ({ product, ...rest }) => (
             display: 'flex'
           }}
         >
-          <GetAppIcon color="action" />
-          <Typography
-            color="textSecondary"
-            display="inline"
-            sx={{ pl: 1 }}
-            variant="body2"
-          >
-            {product.totalDownloads}
-            {' '}
-            Downloads
-          </Typography>
+          <OpenInBrowserIcon color="action" />
+          <Button href={product.href}>
+            <Typography
+              color="textSecondary"
+              display="inline"
+              sx={{ pl: 1 }}
+              variant="body2"
+            >
+              View Website
+            </Typography>
+          </Button>
         </Grid>
       </Grid>
     </Box>

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Helmet } from 'react-helmet';
 import {
   Box,
@@ -48,11 +49,7 @@ const ProductList = () => (
             pt: 3
           }}
         >
-          <Pagination
-            color="primary"
-            count={3}
-            size="small"
-          />
+          
         </Box>
       </Container>
     </Box>

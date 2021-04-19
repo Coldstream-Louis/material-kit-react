@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Bar } from 'react-chartjs-2';
 import {
   Box,
@@ -11,24 +12,55 @@ import {
 } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import { loadMonth } from 'src/dataModel';
+import { useState, useEffect } from 'react';
 
 const Sales = (props) => {
   const theme = useTheme();
+  const [caseList, setCaseList] = useState([]);
+  const [dateList, setDateList] = useState([]);
+  const [newList, setNewList] = useState([]);
+
+  useEffect(() => {
+    if (caseList.length == 0) {
+      getJSON();
+    }
+  }, []);
+
+  const getJSON = async () => {
+    const jsonData = await loadMonth();
+    // console.log(jsonData);
+    const cases = jsonData.timeline.cases;
+    let l1 = [], l2 = [], l3 = [];
+    for(let key in cases) {
+      l1.push(key);
+      l2.push(cases[key]);
+    }
+    for(let i = 0; i < l2.length-1; i++) {
+      l3.push(l2[i+1] - l2[i]);
+    }
+    l1.shift();
+    l2.shift();
+    setDateList(l1);
+    setNewList(l3);
+    setCaseList(l2);
+  };
 
   const data = {
     datasets: [
       {
         backgroundColor: colors.indigo[500],
-        data: [18, 5, 19, 27, 29, 19, 20],
-        label: 'This year'
+        data: newList,
+        label: 'New Cases'
       },
+      /*
       {
         backgroundColor: colors.grey[200],
         data: [11, 20, 12, 29, 30, 25, 13],
-        label: 'Last year'
-      }
+        label: 'Death'
+      }*/
     ],
-    labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug']
+    labels: dateList
   };
 
   const options = {
@@ -91,14 +123,13 @@ const Sales = (props) => {
       <CardHeader
         action={(
           <Button
-            endIcon={<ArrowDropDownIcon />}
             size="small"
             variant="text"
           >
-            Last 7 days
+            Last 30 days
           </Button>
         )}
-        title="Latest Sales"
+        title="Cases for Last 30 Days"
       />
       <Divider />
       <CardContent>

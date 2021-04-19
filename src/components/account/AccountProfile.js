@@ -1,3 +1,4 @@
+/* eslint-disable */
 import moment from 'moment';
 import {
   Avatar,
@@ -11,12 +12,12 @@ import {
 } from '@material-ui/core';
 
 const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  city: 'Los Angeles',
+  avatar: '/static/images/avatars/avatar_5.png',
+  city: 'Ann Arbor, MI',
   country: 'USA',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith',
-  timezone: 'GTM-7'
+  jobTitle: 'UMSI Graduate Student',
+  name: 'Shuyang Du',
+  timezone: 'GTM-4'
 };
 
 const AccountProfile = (props) => (
@@ -57,16 +58,6 @@ const AccountProfile = (props) => (
         </Typography>
       </Box>
     </CardContent>
-    <Divider />
-    <CardActions>
-      <Button
-        color="primary"
-        fullWidth
-        variant="text"
-      >
-        Upload picture
-      </Button>
-    </CardActions>
   </Card>
 );
 
