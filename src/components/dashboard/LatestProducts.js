@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { v4 as uuid } from 'uuid';
 import moment from 'moment';
 import {
@@ -14,94 +15,100 @@ import {
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import { loadMichigan } from 'src/dataModel';
+import { useState, useEffect } from 'react';
 
-const products = [
-  {
-    id: uuid(),
-    name: 'Dropbox',
-    imageUrl: '/static/images/products/product_1.png',
-    updatedAt: moment().subtract(2, 'hours')
-  },
-  {
-    id: uuid(),
-    name: 'Medium Corporation',
-    imageUrl: '/static/images/products/product_2.png',
-    updatedAt: moment().subtract(2, 'hours')
-  },
-  {
-    id: uuid(),
-    name: 'Slack',
-    imageUrl: '/static/images/products/product_3.png',
-    updatedAt: moment().subtract(3, 'hours')
-  },
-  {
-    id: uuid(),
-    name: 'Lyft',
-    imageUrl: '/static/images/products/product_4.png',
-    updatedAt: moment().subtract(5, 'hours')
-  },
-  {
-    id: uuid(),
-    name: 'GitHub',
-    imageUrl: '/static/images/products/product_5.png',
-    updatedAt: moment().subtract(9, 'hours')
+const LatestProducts = (props) => {
+  const [dataJSON, setData] = useState({cases: 0, todayCases: 0, deaths: 0, todayDeaths: 0, recovered: 0, active: 0, updated: 0});
+
+  useEffect(() => {
+    if (dataJSON.cases == 0) {
+      getData();
+    }
+  }, []);
+
+  const getData = async () => {
+    const res = await loadMichigan();
+    setData(res);
   }
-];
 
-const LatestProducts = (props) => (
-  <Card {...props}>
-    <CardHeader
-      subtitle={`${products.length} in total`}
-      title="Latest Products"
-    />
-    <Divider />
-    <List>
-      {products.map((product, i) => (
-        <ListItem
-          divider={i < products.length - 1}
-          key={product.id}
-        >
-          <ListItemAvatar>
-            <img
-              alt={product.name}
-              src={product.imageUrl}
-              style={{
-                height: 48,
-                width: 48
-              }}
-            />
-          </ListItemAvatar>
-          <ListItemText
-            primary={product.name}
-            secondary={`Updated ${product.updatedAt.fromNow()}`}
-          />
-          <IconButton
-            edge="end"
-            size="small"
+  const products = [
+    {
+      id: uuid(),
+      name: 'Total Cases: '+dataJSON.cases,
+      imageUrl: '/static/images/products/washtenaw.jpeg',
+      updatedAt: moment(dataJSON.updated).format('MMMM Do YYYY, h:mm:ss a')
+    },
+    {
+      id: uuid(),
+      name: 'New Cases Today: '+dataJSON.todayCases,
+      imageUrl: '/static/images/products/washtenaw.jpeg',
+      updatedAt: moment(dataJSON.updated).format('MMMM Do YYYY, h:mm:ss a')
+    },
+    {
+      id: uuid(),
+      name: 'Deaths: '+dataJSON.deaths,
+      imageUrl: '/static/images/products/washtenaw.jpeg',
+      updatedAt: moment(dataJSON.updated).format('MMMM Do YYYY, h:mm:ss a')
+    },
+    {
+      id: uuid(),
+      name: 'New Deaths Today: '+dataJSON.todayDeaths,
+      imageUrl: '/static/images/products/washtenaw.jpeg',
+      updatedAt: moment(dataJSON.updated).format('MMMM Do YYYY, h:mm:ss a')
+    },
+    {
+      id: uuid(),
+      name: 'Recovered: '+dataJSON.recovered,
+      imageUrl: '/static/images/products/washtenaw.jpeg',
+      updatedAt: moment(dataJSON.updated).format('MMMM Do YYYY, h:mm:ss a')
+    },
+    {
+      id: uuid(),
+      name: 'Active: '+dataJSON.active,
+      imageUrl: '/static/images/products/washtenaw.jpeg',
+      updatedAt: moment(dataJSON.updated).format('MMMM Do YYYY, h:mm:ss a')
+    }
+  ];
+
+  return (
+    <Card {...props}>
+      <CardHeader
+        subtitle={`${products.length} in total`}
+        title="Michigan Statistic"
+      />
+      <Divider />
+      <List>
+        {products.map((product, i) => (
+          <ListItem
+            divider={i < products.length - 1}
+            key={product.id}
           >
-            <MoreVertIcon />
-          </IconButton>
-        </ListItem>
-      ))}
-    </List>
-    <Divider />
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        p: 2
-      }}
-    >
-      <Button
-        color="primary"
-        endIcon={<ArrowRightIcon />}
-        size="small"
-        variant="text"
-      >
-        View all
-      </Button>
-    </Box>
-  </Card>
-);
+            <ListItemAvatar>
+              <img
+                alt={product.name}
+                src={product.imageUrl}
+                style={{
+                  height: 48,
+                  width: 48
+                }}
+              />
+            </ListItemAvatar>
+            <ListItemText
+              primary={product.name}
+              secondary={`Updated ${product.updatedAt}`}
+            />
+            <IconButton
+              edge="end"
+              size="small"
+            >
+              <MoreVertIcon />
+            </IconButton>
+          </ListItem>
+        ))}
+      </List>
+    </Card>
+  );
+};
 
 export default LatestProducts;

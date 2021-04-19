@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Doughnut } from 'react-chartjs-2';
 import {
   Box,
@@ -9,17 +10,48 @@ import {
   colors,
   useTheme
 } from '@material-ui/core';
-import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import PhoneIcon from '@material-ui/icons/Phone';
-import TabletIcon from '@material-ui/icons/Tablet';
+import FaceIcon from '@material-ui/icons/Face';
+import MoodIcon from '@material-ui/icons/Mood';
+import MoodBadIcon from '@material-ui/icons/MoodBad';
+import { loadToday } from 'src/dataModel';
+import { useState, useEffect } from 'react';
 
 const TrafficByDevice = (props) => {
   const theme = useTheme();
+  const [caseList, setCaseList] = useState([]);
+  const [percentList, setPercentList] = useState([]);
+
+  useEffect(() => {
+    if (caseList.length == 0) {
+      getJSON();
+    }
+  }, []);
+
+  const getJSON = async () => {
+    const jsonData = await loadToday();
+    // console.log(jsonData);
+    const active = jsonData.active;
+    const recovered = jsonData.recovered;
+    const deaths = jsonData.deaths;
+    const cases = jsonData.cases;
+    let l1 = [], l2 = [];
+    l1.push(active);
+    l1.push(recovered);
+    l1.push(deaths);
+    const p1 = Math.round(100 * active / cases);
+    const p2 = Math.round(100 * recovered / cases);
+    const p3 = Math.round(100 * deaths / cases);
+    l2.push(p1);
+    l2.push(p2);
+    l2.push(p3);
+    setCaseList(l1);
+    setPercentList(l2);
+  };
 
   const data = {
     datasets: [
       {
-        data: [63, 15, 22],
+        data: caseList,
         backgroundColor: [
           colors.indigo[500],
           colors.red[600],
@@ -30,7 +62,7 @@ const TrafficByDevice = (props) => {
         hoverBorderColor: colors.common.white
       }
     ],
-    labels: ['Desktop', 'Tablet', 'Mobile']
+    labels: ['Active', 'Recovered', 'Death']
   };
 
   const options = {
@@ -57,28 +89,28 @@ const TrafficByDevice = (props) => {
 
   const devices = [
     {
-      title: 'Desktop',
-      value: 63,
-      icon: LaptopMacIcon,
+      title: 'Active',
+      value: percentList[0],
+      icon: FaceIcon,
       color: colors.indigo[500]
     },
     {
-      title: 'Tablet',
-      value: 15,
-      icon: TabletIcon,
+      title: 'Recovered',
+      value: percentList[1],
+      icon: MoodIcon,
       color: colors.red[600]
     },
     {
-      title: 'Mobile',
-      value: 23,
-      icon: PhoneIcon,
+      title: 'Death',
+      value: percentList[2],
+      icon: MoodBadIcon,
       color: colors.orange[600]
     }
   ];
 
   return (
     <Card {...props}>
-      <CardHeader title="Traffic by Device" />
+      <CardHeader title="General Statistic" />
       <Divider />
       <CardContent>
         <Box

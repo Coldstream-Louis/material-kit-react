@@ -3,50 +3,50 @@ import { v4 as uuid } from 'uuid';
 export default [
   {
     id: uuid(),
-    createdAt: '27/03/2019',
-    description: 'Dropbox is a file hosting service that offers cloud storage, file synchronization, a personal cloud.',
-    media: '/static/images/products/product_1.png',
-    title: 'Dropbox',
-    totalDownloads: '594'
+    description: 'React makes it painless to create interactive UIs. React will efficiently update and render just the right components when your data changes.',
+    media: '/static/images/products/react.png',
+    title: 'React.js',
+    totalDownloads: '594',
+    href: 'https://reactjs.org/docs/getting-started.html'
   },
   {
     id: uuid(),
-    createdAt: '31/03/2019',
-    description: 'Medium is an online publishing platform developed by Evan Williams, and launched in August 2012.',
-    media: '/static/images/products/product_2.png',
-    title: 'Medium Corporation',
-    totalDownloads: '625'
+    description: 'React components for faster and easier web development. Build your own design system, or start with Material Design.',
+    media: '/static/images/products/material-ui.png',
+    title: 'Material UI',
+    totalDownloads: '625',
+    href: 'https://material-ui.com/getting-started/installation/'
   },
   {
     id: uuid(),
-    createdAt: '03/04/2019',
-    description: 'Slack is a cloud-based set of team collaboration tools and services, founded by Stewart Butterfield.',
-    media: '/static/images/products/product_3.png',
-    title: 'Slack',
-    totalDownloads: '857'
+    description: 'Simple yet flexible JavaScript charting for designers & developers.',
+    media: '/static/images/products/chartjs.png',
+    title: 'Chart.js',
+    totalDownloads: '857',
+    href: 'https://www.chartjs.org/docs/latest/'
   },
   {
     id: uuid(),
-    createdAt: '04/04/2019',
-    description: 'Lyft is an on-demand transportation company based in San Francisco, California.',
-    media: '/static/images/products/product_4.png',
-    title: 'Lyft',
-    totalDownloads: '406'
+    description: 'Moment.js has been successfully used in millions of projects, and we are happy to have contributed to making date and time better on the web. ',
+    media: '/static/images/products/momentjs.png',
+    title: 'Moment.js',
+    totalDownloads: '406',
+    href: 'https://momentjs.com/'
   },
   {
     id: uuid(),
-    createdAt: '04/04/2019',
+    description: 'As an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications.',
+    media: '/static/images/products/node-js.jpeg',
+    title: 'NodeJS',
+    totalDownloads: '835',
+    href: 'https://nodejs.org/en/'
+  },
+  {
+    id: uuid(),
     description: 'GitHub is a web-based hosting service for version control of code using Git.',
     media: '/static/images/products/product_5.png',
     title: 'GitHub',
-    totalDownloads: '835'
-  },
-  {
-    id: uuid(),
-    createdAt: '04/04/2019',
-    description: 'Squarespace provides software as a service for website building and hosting. Headquartered in NYC.',
-    media: '/static/images/products/product_6.png',
-    title: 'Squarespace',
-    totalDownloads: '835'
+    totalDownloads: '835',
+    href: 'https://github.com/'
   }
 ];

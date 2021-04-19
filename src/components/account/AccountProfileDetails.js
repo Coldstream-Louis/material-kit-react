@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import {
-  Box,
-  Button,
   Card,
   CardContent,
   CardHeader,
@@ -12,8 +10,8 @@ import {
 
 const states = [
   {
-    value: 'alabama',
-    label: 'Alabama'
+    value: 'ann-arbor',
+    label: 'Ann Arbor'
   },
   {
     value: 'new-york',
@@ -27,11 +25,11 @@ const states = [
 
 const AccountProfileDetails = (props) => {
   const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
-    email: 'demo@devias.io',
-    phone: '',
-    state: 'Alabama',
+    firstName: 'Shuyang',
+    lastName: 'Du',
+    email: 'shuyangd@umich.edu',
+    phone: '7347735416',
+    state: 'Ann Arbor',
     country: 'USA'
   });
 
@@ -163,21 +161,6 @@ const AccountProfileDetails = (props) => {
             </Grid>
           </Grid>
         </CardContent>
-        <Divider />
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            p: 2
-          }}
-        >
-          <Button
-            color="primary"
-            variant="contained"
-          >
-            Save details
-          </Button>
-        </Box>
       </Card>
     </form>
   );

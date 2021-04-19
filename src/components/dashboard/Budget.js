@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   Avatar,
   Box,
@@ -7,10 +8,35 @@ import {
   Typography
 } from '@material-ui/core';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import MoneyIcon from '@material-ui/icons/Money';
+import TodayIcon from '@material-ui/icons/Today';
 import { red } from '@material-ui/core/colors';
+import { loadToday, loadYesterday } from 'src/dataModel';
+import { useState, useEffect } from 'react';
 
-const Budget = (props) => (
+const Budget = (props) => {
+  const [todayCases, setTodayCases] = useState(0);
+  const [yesterdayCases, setYesterdayCases] = useState(0);
+  const [percent, setPercent] = useState(0);
+
+  const getTodayCases = async () => {
+    const jsonData = await loadToday();
+    setTodayCases(jsonData.todayCases);
+    await getYesterdayCases(jsonData.todayCases);
+  };
+
+  const getYesterdayCases = async (todayCases) => {
+    const jsonData = await loadYesterday();
+    await setYesterdayCases(jsonData.todayCases);
+    setPercent(Math.round(100 * (jsonData.todayCases - todayCases) / jsonData.todayCases));
+  };
+
+  useEffect(() => {
+    if (todayCases === 0) {
+      getTodayCases();
+    }
+  }, []);
+
+  return (
   <Card
     sx={{ height: '100%' }}
     {...props}
@@ -27,13 +53,13 @@ const Budget = (props) => (
             gutterBottom
             variant="h6"
           >
-            BUDGET
+            TODAY CASES
           </Typography>
           <Typography
             color="textPrimary"
             variant="h3"
           >
-            $24,000
+            {todayCases}
           </Typography>
         </Grid>
         <Grid item>
@@ -44,7 +70,7 @@ const Budget = (props) => (
               width: 56
             }}
           >
-            <MoneyIcon />
+            <TodayIcon />
           </Avatar>
         </Grid>
       </Grid>
@@ -63,17 +89,18 @@ const Budget = (props) => (
           }}
           variant="body2"
         >
-          12%
+          {percent}%
         </Typography>
         <Typography
           color="textSecondary"
           variant="caption"
         >
-          Since last month
+          Compare to Yesterday Cases: {yesterdayCases}
         </Typography>
       </Box>
     </CardContent>
   </Card>
-);
+  );
+};
 
 export default Budget;

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -16,17 +17,18 @@ import {
   BarChart as BarChartIcon,
   Lock as LockIcon,
   Settings as SettingsIcon,
-  ShoppingBag as ShoppingBagIcon,
+  Layers as LayersIcon,
   User as UserIcon,
   UserPlus as UserPlusIcon,
-  Users as UsersIcon
+  // Users as UsersIcon,
+  List as ListIcon
 } from 'react-feather';
 import NavItem from './NavItem';
 
 const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
+  avatar: '/static/images/avatars/avatar_5.png',
+  jobTitle: 'UMSI Graduate Student',
+  name: 'Shuyang Du'
 };
 
 const items = [
@@ -37,19 +39,20 @@ const items = [
   },
   {
     href: '/app/customers',
-    icon: UsersIcon,
-    title: 'Customers'
+    icon: ListIcon,
+    title: 'States'
   },
   {
     href: '/app/products',
-    icon: ShoppingBagIcon,
-    title: 'Products'
+    icon: LayersIcon,
+    title: 'Technical Stack'
   },
   {
     href: '/app/account',
     icon: UserIcon,
-    title: 'Account'
+    title: 'About Me'
   },
+  /*
   {
     href: '/app/settings',
     icon: SettingsIcon,
@@ -69,7 +72,7 @@ const items = [
     href: '/404',
     icon: AlertCircleIcon,
     title: 'Error'
-  }
+  }*/
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
@@ -146,13 +149,13 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           gutterBottom
           variant="h4"
         >
-          Need more?
+          Need More Info?
         </Typography>
         <Typography
           align="center"
           variant="body2"
         >
-          Upgrade to PRO version and access 20 more screens
+          Please view the Github repository of this project
         </Typography>
         <Box
           sx={{
@@ -164,10 +167,10 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           <Button
             color="primary"
             component="a"
-            href="https://react-material-kit.devias.io"
+            href="https://github.com/Coldstream-Louis/material-kit-react"
             variant="contained"
           >
-            See PRO version
+            OPEN THE REPO
           </Button>
         </Box>
       </Box>

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -17,148 +18,100 @@ import {
   Tooltip
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import { loadStates } from 'src/dataModel';
+import { useState, useEffect } from 'react';
 
-const orders = [
-  {
-    id: uuid(),
-    ref: 'CDD1049',
-    amount: 30.5,
-    customer: {
-      name: 'Ekaterina Tankova'
-    },
-    createdAt: 1555016400000,
-    status: 'pending'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1048',
-    amount: 25.1,
-    customer: {
-      name: 'Cao Yu'
-    },
-    createdAt: 1555016400000,
-    status: 'delivered'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1047',
-    amount: 10.99,
-    customer: {
-      name: 'Alexa Richardson'
-    },
-    createdAt: 1554930000000,
-    status: 'refunded'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1046',
-    amount: 96.43,
-    customer: {
-      name: 'Anje Keizer'
-    },
-    createdAt: 1554757200000,
-    status: 'pending'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1045',
-    amount: 32.54,
-    customer: {
-      name: 'Clarke Gillebert'
-    },
-    createdAt: 1554670800000,
-    status: 'delivered'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1044',
-    amount: 16.76,
-    customer: {
-      name: 'Adam Denisov'
-    },
-    createdAt: 1554670800000,
-    status: 'delivered'
-  }
-];
+const LatestOrders = (props) => {
+  const [stateList, setStateList] = useState([]);
 
-const LatestOrders = (props) => (
-  <Card {...props}>
-    <CardHeader title="Latest Orders" />
-    <Divider />
-    <PerfectScrollbar>
-      <Box sx={{ minWidth: 800 }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                Order Ref
-              </TableCell>
-              <TableCell>
-                Customer
-              </TableCell>
-              <TableCell sortDirection="desc">
-                <Tooltip
-                  enterDelay={300}
-                  title="Sort"
-                >
-                  <TableSortLabel
-                    active
-                    direction="desc"
-                  >
-                    Date
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-              <TableCell>
-                Status
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {orders.map((order) => (
-              <TableRow
-                hover
-                key={order.id}
-              >
+  useEffect(() => {
+    if (stateList.length == 0) {
+      getJSON();
+    }
+  }, []);
+
+  const getJSON = async () => {
+    const jsonData = await loadStates();
+    let l1 = [];
+    for(let i = 0; i < 6; i++) {
+      let item = {
+        key: i,
+        state: jsonData[i].state,
+        cases: jsonData[i].cases,
+        todayCases: jsonData[i].todayCases,
+        active: jsonData[i].active
+      }
+      l1.push(item);
+    }
+    setStateList(l1);
+  };
+
+  return (
+    <Card {...props}>
+      <CardHeader title="States Statistic" />
+      <Divider />
+      <PerfectScrollbar>
+        <Box sx={{ minWidth: 800 }}>
+          <Table>
+            <TableHead>
+              <TableRow>
                 <TableCell>
-                  {order.ref}
+                  State Name
                 </TableCell>
                 <TableCell>
-                  {order.customer.name}
+                  Total Cases
                 </TableCell>
                 <TableCell>
-                  {moment(order.createdAt).format('DD/MM/YYYY')}
+                  New Cases
                 </TableCell>
                 <TableCell>
-                  <Chip
-                    color="primary"
-                    label={order.status}
-                    size="small"
-                  />
+                  Active Cases
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-    </PerfectScrollbar>
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        p: 2
-      }}
-    >
-      <Button
-        color="primary"
-        endIcon={<ArrowRightIcon />}
-        size="small"
-        variant="text"
+            </TableHead>
+            <TableBody>
+              {stateList.map((state) => (
+                <TableRow
+                  hover
+                  key={state.key}
+                >
+                  <TableCell>
+                    {state.state}
+                  </TableCell>
+                  <TableCell>
+                    {state.cases}
+                  </TableCell>
+                  <TableCell>
+                    {state.todayCases}
+                  </TableCell>
+                  <TableCell>
+                    {state.active}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
+      </PerfectScrollbar>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          p: 2
+        }}
       >
-        View all
-      </Button>
-    </Box>
-  </Card>
-);
+        <Button
+          color="primary"
+          endIcon={<ArrowRightIcon />}
+          size="small"
+          variant="text"
+          href='/app/customers'
+        >
+          View all
+        </Button>
+      </Box>
+    </Card>
+  );
+};
 
 export default LatestOrders;
