@@ -88,6 +88,7 @@ material-react-dashboard
 	├── App.jsx
 	├── index.jsx
 	└── Routes.jsx
+	└── dataModel.js
 ```
 
 ## Resources
